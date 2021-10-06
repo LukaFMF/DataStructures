@@ -1,3 +1,3 @@
 # Data Structures
-Implementiran podatkovne strukture:
+Implementirane podatkovne strukture:
 * sklad.
