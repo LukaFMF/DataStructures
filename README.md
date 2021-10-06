@@ -1,2 +1,3 @@
-# DataStructures
-Implementacija podatkovnih struktur v C-ju
+# Data Structures
+Implementiran podatkovne strukture:
+* sklad.
