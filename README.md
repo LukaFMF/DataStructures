@@ -1,3 +1,4 @@
 # Data Structures
 Implementiran podatkovne strukture:
-* sklad.
+* sklad,
+* vrsta.
