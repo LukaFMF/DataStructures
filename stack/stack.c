@@ -15,14 +15,14 @@ typedef struct stack
 } stack;
 
 // first_time_init must be set only if this is the first time 
-// initializinig or if stack cleanup has been called on a particular stack  
+// initializinig or if stack cleanup has been called on that particular stack  
 void stack_init(stack *s,bool first_time_init)  
 {
 	if(!first_time_init)
 		free(s->data);
-	s->data = malloc(8u*sizeof(i32));
-	s->capacity = 8u;
 	s->size = 0u;
+	s->capacity = 8u;
+	s->data = malloc(s->capacity*sizeof(i32));
 }
 
 bool stack_is_empty(stack *s)
@@ -48,7 +48,7 @@ i32 stack_pop(stack *s)
 		s->size--;
 		return s->data[s->size];
 	}
-	printf("Tried removing an element from empty stack, exiting!");
+	printf("Tried removing an element from empty stack, exiting!\n");
 	exit(-1);
 }
 
@@ -139,7 +139,7 @@ i32 evaluate_expression(char *expr)
 	return expr_value;
 
 	error:
-	printf("Expression is invalid, exiting!");
+	printf("Expression is invalid, exiting!\n");
 	exit(-1);
 }
 
