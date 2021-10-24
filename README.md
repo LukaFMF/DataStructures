@@ -1,4 +1,5 @@
 # Data Structures
 Implementiran podatkovne strukture:
 * sklad,
-* vrsta.
+* vrsta,
+* verižni seznam.
