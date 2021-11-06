@@ -152,5 +152,6 @@ void trie_write(trie *t,const char *filename)
 	char *s = malloc(t->max_str_len + 1);
 	FILE *file = fopen(filename,"w");
 	trie_write_rec(t->empty_str,s,0u,file);
+	fclose(file);
 	free(s);
 }

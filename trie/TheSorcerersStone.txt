@@ -297,7 +297,7 @@ swapping rumors."
 
 She threw a sharp, sideways glance at Dumbledore here, as though hoping
 he was going to tell her something, but he didn't, so she went on. "A
-fine thing it would be if, on the very day YouKnow-Who seems to have
+fine thing it would be if, on the very day You-Know-Who seems to have
 disappeared at last, the Muggles found out about us all. I suppose he
 really has gone, Dumbledore?"
 
@@ -1857,7 +1857,7 @@ he was gettin' more an' more powerful -- why'd he go?
 "Some say he died. Codswallop, in my opinion. Dunno if he had enough
 human left in him to die. Some say he's still out there, bidin' his
 time, like, but I don' believe it. People who was on his side came back
-ter ours. Some of 'em came outta kinda trances. Don~ reckon they
+ter ours. Some of 'em came outta kinda trances. Don' reckon they
 could've done if he was comin' back.
 
 "Most of us reckon he's still out there somewhere but lost his powers.
@@ -2428,7 +2428,7 @@ The goblin looked at it closely.
 "That seems to be in order."
 
 "An' I've also got a letter here from Professor Dumbledore," said Hagrid
-importantly, throwing out his chest. "It's about the YouKnow-What in
+importantly, throwing out his chest. "It's about the You-Know-What in
 vault seven hundred and thirteen."
 
 The goblin read the letter carefully.
@@ -4645,7 +4645,7 @@ They were cold and empty and made you think of dark tunnels.
 
 "You are here to learn the subtle science and exact art of
 potionmaking," he began. He spoke in barely more than a whisper, but
-they caught every word -- like Professor McGonagall, Snape had y caught
+they caught every word -- like Professor McGonagall, Snape had caught
 every word -- like Professor McGonagall, Snape had the gift of keeping a
 class silent without effort. "As there is little foolish wand-waving
 here, many of you will hardly believe this is magic. I don't expect you
@@ -5306,7 +5306,7 @@ was locked out of Gryffindor tower.
 
 "Now what am I going to do?" she asked shrilly.
 
-"That's your problem," said Ron. "We've got to go, we 3 re going to be
+"That's your problem," said Ron. "We've got to go, we 3 are going to be
 late."
 
 They hadn't even reached the end of the corridor when Hermione caught up
@@ -7909,7 +7909,7 @@ apart from Fluffy."
 
 Hagrid frowned at him.
 
-"0' course I cant, he said. "Number one, I don' know meself. Number two,
+"0' course I can't, he said. "Number one, I don' know meself. Number two,
 yeh know too much already, so I wouldn' tell yeh if I could. That
 Stone's here fer a good reason. It Was almost stolen outta Gringotts - I
 s'ppose yeh've worked that out an' all? Beats me how yeh even know abou'
@@ -9085,7 +9085,7 @@ about, Hagrid? Did you mention Hogwarts at all?"
 "Yeah... he asked what I did, an' I told him I was gamekeeper here....
 He asked a bit about the sorta creatures I took after... so I told
 him... an' I said what I'd always really wanted was a dragon... an'
-then... I can' remember too well, 'cause he kept buyin' me drinks....
+then... I can't remember too well, 'cause he kept buyin' me drinks....
 Let's see... yeah, then he said he had the dragon egg an' we could play
 cards fer it if I wanted... but he had ter be sure I could handle it, he
 didn' want it ter go ter any old home.... So I told him, after Fluffy, a

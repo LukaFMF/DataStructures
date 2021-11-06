@@ -99,7 +99,6 @@ alarming
 alas
 alberic
 albus
-albus-
 alchemist
 alchemy
 algie
@@ -108,7 +107,6 @@ alicia
 alien
 alive
 all
-all-
 alley
 allowed
 almost
@@ -552,7 +550,6 @@ bonfire
 bonnet
 bonnets
 bonus
-booger-
 boogers
 book
 book's
@@ -692,7 +689,6 @@ bunny
 buried
 burly
 burn
-burn-
 burned
 burning
 burnished
@@ -743,7 +739,6 @@ calmly
 came
 camera
 can
-can'
 can't
 can't've
 canary-yellow
@@ -757,7 +752,6 @@ cannon
 cannonball
 cannot
 cans
-cant
 cantered
 cap
 captain
@@ -783,7 +777,6 @@ carried
 carrots
 carry
 carrying
-carrying-
 cars
 cart
 cartoon
@@ -1107,7 +1100,6 @@ course
 courtyard
 cousin
 cover
-cover-
 covered
 covers
 coward
@@ -1158,7 +1150,6 @@ croaked
 crockford
 crooked
 cross
-cross-
 crossbow
 crossed
 crossly
@@ -1348,7 +1339,6 @@ different-colored
 different-sized
 differently
 difficult
-difficult-
 difficulty
 diggle
 diggle's
@@ -1412,7 +1402,6 @@ doesn't
 dog
 dog's
 dogs
-doi*
 doin'
 doing
 dolphins
@@ -1420,7 +1409,6 @@ don'
 don't
 done
 donkeys
-don~
 doom
 door
 door's
@@ -1532,11 +1520,9 @@ duffers
 dull
 dully
 dumbfounded
-dumbled--
 dumbledore
 dumbledore'll
 dumbledore's
-dumbledore-
 dump
 dumped
 dumpy
@@ -1588,6 +1574,7 @@ ebony
 echoed
 echoes
 eclairs
+ed
 edge
 edged
 edges
@@ -1673,7 +1660,6 @@ evening
 evenings
 events
 ever
-ever-
 every
 everybody
 everyone
@@ -1962,7 +1948,6 @@ fluttering
 fly
 flyin'
 flying
-flying-
 foghorn
 folded
 folds
@@ -2063,7 +2048,6 @@ frog-marched
 frogs
 from
 front
-front-
 frost
 frown
 frowned
@@ -2211,7 +2195,6 @@ glue
 glumly
 go
 goal
-goal-
 goat
 goblet
 goblets
@@ -2365,7 +2348,6 @@ haircuts
 hairs
 hairy
 half
-half-
 half-and-half
 half-life
 half-moon
@@ -2437,7 +2419,6 @@ he
 he'd
 he'll
 he's
-he-
 head
 headed
 headfirst
@@ -2681,7 +2662,6 @@ impressively
 improve
 improvement
 in
-in-
 inch
 inched
 inches
@@ -2716,7 +2696,6 @@ instead
 instinct
 instructions
 instruments
-insult-
 insulted
 insultin'
 intently
@@ -2966,7 +2945,6 @@ level
 levi-o-sa
 leviosa
 ley
-li-
 liar
 librarian
 library
@@ -3143,7 +3121,6 @@ many
 map
 maple
 maps
-mar-
 marble
 marbles
 march
@@ -3222,7 +3199,6 @@ met
 metal
 meters
 mice
-mid-
 mid-december
 midair
 middle
@@ -3527,7 +3503,6 @@ oddball
 oddly
 oddment
 of
-of-
 off
 offended
 offered
@@ -3558,7 +3533,6 @@ ooh
 oooooh
 oooooooh
 open
-open-
 opened
 opening
 opera
@@ -3614,7 +3588,6 @@ owners
 oy
 oyt
 p
-p-
 p-p-petunia
 p-p-poor
 p-p-potter
@@ -3843,7 +3816,6 @@ plunged
 pocket
 pocketed
 pockets
-pocuss--
 point
 pointed
 pointing
@@ -4084,7 +4056,6 @@ ravenclaws
 ravine
 raw
 ray
-re
 reach
 reached
 reaching
@@ -4347,7 +4318,6 @@ say
 sayin'
 saying
 says
-sc-
 scabbers
 scabbers'
 scabbets
@@ -4480,7 +4450,6 @@ seven
 seventeen
 seventh
 seventy
-seventy-
 seventy-two
 several
 severe-looking
@@ -4671,7 +4640,6 @@ slapping
 slay
 sleek
 sleep
-sleep-
 sleepily
 sleepiness
 sleeping
@@ -4745,7 +4713,6 @@ smoothly
 smothering
 smudged
 smuggle
-sn-
 snake
 snakelike
 snakes
@@ -4842,7 +4809,6 @@ sound
 sounded
 sounding
 sounds
-sp-
 space
 spaces
 sparkling
@@ -5360,7 +5326,6 @@ thieves
 thin
 thing
 thing's
-thing*
 things
 think
 thinking
@@ -5468,7 +5433,6 @@ tomatoes
 tomorrow
 tone
 tongue
-tongue-
 tonight
 too
 took
@@ -5769,8 +5733,6 @@ visitors
 voice
 voices
 voicing
-vol-
-vol--
 voldemort
 voldemort's
 volume
@@ -5876,7 +5838,6 @@ weirdest
 weirdos
 welcome
 well
-well-
 well-known
 well-organized
 welsh
@@ -6080,7 +6041,6 @@ wrong
 wrongly
 wrote
 wrought-iron
-y
 yard
 yawned
 yawning
@@ -6115,13 +6075,9 @@ you'd
 you'll
 you're
 you've
-you-
-you-know-
 you-know-what
 you-know-who
 you-know-who's
-youknow-what
-youknow-who
 young
 younger
 youngest
