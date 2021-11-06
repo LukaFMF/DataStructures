@@ -113,10 +113,8 @@ void trie_insert(trie *t,const char *str)
 void trie_cleanup_rec(trie_node *curr)
 {
 	for(u32 i = 0u;i < curr->num_next_nodes;i++)
-	{
 		trie_cleanup_rec(curr->next_nodes[i]);
-		free(curr->next_nodes[i]);
-	}
+
 	if(curr->num_next_nodes > 0)
 		free(curr->next_nodes);
 	free(curr);
@@ -126,12 +124,11 @@ void trie_cleanup(trie *t)
 {
 	trie_cleanup_rec(t->empty_str);
 	t->size = 0u;
-	t->max_str_len = 0u; 
+	t->max_str_len = 0u;
 }
 
-void trie_write_rec(trie_node *curr,char *str,u32 depth,FILE *file)
+void trie_sort_to_file_rec(trie_node *curr,char *str,u32 depth,FILE *file)
 {
-	//printf("%c - %s\n",curr->character,curr->word_mark ? "true" : "false");
 	if(depth > 0)
 		str[depth-1] = curr->character;
 
@@ -142,16 +139,25 @@ void trie_write_rec(trie_node *curr,char *str,u32 depth,FILE *file)
 	}
 
 	for(u32 i = 0u;i < curr->num_next_nodes;i++)
-	{
-		trie_write_rec(curr->next_nodes[i],str,depth + 1,file);
-	}
+		trie_sort_to_file_rec(curr->next_nodes[i],str,depth + 1,file);
 }
 
-void trie_write(trie *t,const char *filename)
+void trie_sort_to_file(trie *t,const char *filename)
 {
 	char *s = malloc(t->max_str_len + 1);
 	FILE *file = fopen(filename,"w");
-	trie_write_rec(t->empty_str,s,0u,file);
+
+	trie_sort_to_file_rec(t->empty_str,s,0u,file);
+
 	fclose(file);
 	free(s);
 }
+
+// Example generic structure
+// #define dynamic_array(name,type) 		\
+// typedef struct dynamic_array_##name		\
+// {										\
+// 	u32 size;							\
+// 	u32 capacity;						\
+// 	type *data;							\
+// } dynamic_array_##name;
