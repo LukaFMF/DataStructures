@@ -3,15 +3,19 @@
 #include <string.h>
 
 #include "../utils/types.h"
+#include "../dyn_array/dyn_array.h"
+
+// forward declaration for trie node
+typedef struct trie_node trie_node;
+
+def_dyn_array(t_node,trie_node*)
 
 typedef struct trie_node
 {
 	char character;
 	bool word_mark;
-	u32 num_next_nodes;
-	struct trie_node **next_nodes;
+	dyn_array_t_node next_nodes;
 } trie_node;
-
 
 typedef struct trie
 {
@@ -27,34 +31,33 @@ void trie_init(trie *t)
 	t->empty_str = malloc(sizeof(trie_node));
 	t->empty_str->character = '\0';
 	t->empty_str->word_mark = false;
-	t->empty_str->num_next_nodes = 0u;
+	dyn_array_t_node_init(&t->empty_str->next_nodes);
 }
 
 void trie_insert(trie *t,const char *str)
 {
-	//printf("INSERTING: %s\n",str);
 	trie_node *curr_node = t->empty_str;
 
 	u32 curr_depth = 0u;
 	for(u32 i = 0u;i < strlen(str);i++)
 	{
-		u32 insert_inx = 0u;
+		u32 insert_inx;
 		bool found = false;
 		bool insert_to_last = true;
 		const char curr_char = str[i];
-		for(u32 j = 0u;j < curr_node->num_next_nodes;j++)
+		for(insert_inx = 0u;insert_inx < curr_node->next_nodes.size;insert_inx++)
 		{
-			const char possible_next_char = curr_node->next_nodes[j]->character;
+			const char possible_next_char = curr_node->next_nodes.data[insert_inx]->character;
 			if(curr_char == possible_next_char)
 			{
 				found = true;
-				insert_inx = j;
+				//insert_inx = j;
 				break;
 			}
 			else if(curr_char < possible_next_char)
 			{
 				insert_to_last = false;
-				insert_inx = j;
+				//insert_inx = j;
 				break;
 			}
 		}
@@ -62,40 +65,17 @@ void trie_insert(trie *t,const char *str)
 		// if character has no barnch yet we create it
 		if(!found)
 		{
-			if(curr_node->num_next_nodes == 0u)
-			{
-				//printf("first insert %c\n",curr_char);
-				curr_node->num_next_nodes = 1u;
-				curr_node->next_nodes = malloc(sizeof(trie_node*));
-				curr_node->next_nodes[0] = malloc(sizeof(trie_node));
-			}
-			else if(insert_to_last)
-			{
-				//printf("insert to last: %c\n",curr_char);
-				curr_node->num_next_nodes++;
-				curr_node->next_nodes = realloc(curr_node->next_nodes,curr_node->num_next_nodes*sizeof(trie_node*));
+			trie_node *new = malloc(sizeof(trie_node));
+			new->character = curr_char;
+			new->word_mark = false;
+			dyn_array_t_node_init(&new->next_nodes);
 
-				insert_inx = curr_node->num_next_nodes - 1;
-				curr_node->next_nodes[insert_inx] = malloc(sizeof(trie_node));
-			}
+			if(insert_to_last)
+				dyn_array_t_node_append(&curr_node->next_nodes,new);
 			else
-			{
-				//printf("insert to %d: %c\n",insert_inx,curr_char);
-				curr_node->num_next_nodes++;
-				curr_node->next_nodes = realloc(curr_node->next_nodes,curr_node->num_next_nodes*sizeof(trie_node*));
-
-				// make space for new element
-				trie_node **move_src = curr_node->next_nodes + insert_inx;
-				const u32 bytes_to_move = (curr_node->num_next_nodes - insert_inx - 1)*sizeof(trie_node*);
-				memmove(move_src + 1,move_src,bytes_to_move);
-				curr_node->next_nodes[insert_inx] = malloc(sizeof(trie_node));
-			}
-			trie_node *next_node = curr_node->next_nodes[insert_inx];
-			next_node->character = curr_char;
-			next_node->word_mark = false;
-			next_node->num_next_nodes = 0u;
+				dyn_array_t_node_insert(&curr_node->next_nodes,insert_inx,new);
 		}
-		curr_node = curr_node->next_nodes[insert_inx];
+		curr_node = curr_node->next_nodes.data[insert_inx];
 		curr_depth++;
 	}
 
@@ -112,11 +92,10 @@ void trie_insert(trie *t,const char *str)
 
 void trie_cleanup_rec(trie_node *curr)
 {
-	for(u32 i = 0u;i < curr->num_next_nodes;i++)
-		trie_cleanup_rec(curr->next_nodes[i]);
+	for(u32 i = 0u;i < curr->next_nodes.size;i++)
+		trie_cleanup_rec(curr->next_nodes.data[i]);
 
-	if(curr->num_next_nodes > 0)
-		free(curr->next_nodes);
+	dyn_array_t_node_cleanup(&curr->next_nodes);
 	free(curr);
 } 
 
@@ -138,8 +117,8 @@ void trie_sort_to_file_rec(trie_node *curr,char *str,u32 depth,FILE *file)
 		fprintf(file,"%s\n",str);
 	}
 
-	for(u32 i = 0u;i < curr->num_next_nodes;i++)
-		trie_sort_to_file_rec(curr->next_nodes[i],str,depth + 1,file);
+	for(u32 i = 0u;i < curr->next_nodes.size;i++)
+		trie_sort_to_file_rec(curr->next_nodes.data[i],str,depth + 1,file);
 }
 
 void trie_sort_to_file(trie *t,const char *filename)
@@ -152,12 +131,3 @@ void trie_sort_to_file(trie *t,const char *filename)
 	fclose(file);
 	free(s);
 }
-
-// Example generic structure
-// #define dynamic_array(name,type) 		\
-// typedef struct dynamic_array_##name		\
-// {										\
-// 	u32 size;							\
-// 	u32 capacity;						\
-// 	type *data;							\
-// } dynamic_array_##name;
