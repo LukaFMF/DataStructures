@@ -8,6 +8,7 @@
 // forward declaration for trie node
 typedef struct trie_node trie_node;
 
+// definition for all the generic dyn_array things
 def_dyn_array(t_node,trie_node*)
 
 typedef struct trie_node
@@ -51,13 +52,11 @@ void trie_insert(trie *t,const char *str)
 			if(curr_char == possible_next_char)
 			{
 				found = true;
-				//insert_inx = j;
 				break;
 			}
 			else if(curr_char < possible_next_char)
 			{
 				insert_to_last = false;
-				//insert_inx = j;
 				break;
 			}
 		}
@@ -79,7 +78,7 @@ void trie_insert(trie *t,const char *str)
 		curr_depth++;
 	}
 
-	// if word already exists in trie
+	// we should only increment size, if the word is not yet contained  
 	if(!curr_node->word_mark)
 	{
 		curr_node->word_mark = true;
@@ -111,6 +110,7 @@ void trie_sort_to_file_rec(trie_node *curr,char *str,u32 depth,FILE *file)
 	if(depth > 0)
 		str[depth-1] = curr->character;
 
+	// we found a complete
 	if(curr->word_mark)
 	{
 		str[depth] = '\0';
