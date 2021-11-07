@@ -79,31 +79,31 @@ void read_file_into_trie(trie *t,const char *filename)
 	free(file_contents);
 }
 
-void trie_sorted_print(trie_node *curr,char *str,u32 depth)
-{
-	if(depth > 0)
-		str[depth-1] = curr->character;
-
-	if(curr->word_mark)
-	{
-		str[depth] = '\0';
-		printf("%s\n",str);
-	}
-
-	for(u32 i = 0u;i < curr->next_nodes.size;i++)
-		trie_sorted_print(curr->next_nodes.data[i],str,depth + 1);
-}
-
 i32 main(void)
 {
 	trie t;
-
 	trie_init(&t);
 
-	// downloader from: https://sites.google.com/site/the74thhungergamesbyced/download-the-hunger-games-trilogy-e-book-txt-file
+	// downloaded from: https://sites.google.com/site/the74thhungergamesbyced/download-the-hunger-games-trilogy-e-book-txt-file
 	read_file_into_trie(&t,"TheHungerGames.txt");
-	trie_sort_to_file(&t,"TheHungerGamesWords.txt");
 
+	trie_result tr;
+	trie_result_init(&tr);
+
+	trie_sort(&t,&tr);
+	trie_result_to_file(&tr,"TheHungerGamesWords.txt");
+
+	trie_result_reset(&tr);
+
+	trie_query(&t,&tr,"to"); // all words that begin with "to"
+	trie_result_to_file(&tr,"TheHungerGamesWordsStartWithTo.txt");
+
+	trie_result_reset(&tr);
+
+	trie_query(&t,&tr,"bar"); // all words that begin with "bar"
+	trie_result_to_file(&tr,"TheHungerGamesWordsStartWithBar.txt");
+
+	trie_result_cleanup(&tr);
 	trie_cleanup(&t);
 
 	return 0;
