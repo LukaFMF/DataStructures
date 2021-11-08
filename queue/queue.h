@@ -13,7 +13,7 @@ typedef struct queue_##NAME													\
 	TYPE *data;																\
 } queue_##NAME;																\
 \
-void queue_init_##NAME(queue_##NAME *q)										\
+void queue_##NAME##_init(queue_##NAME *q)									\
 {																			\
 	q->start = 0u;															\
 	q->size = 0u;															\
@@ -21,29 +21,29 @@ void queue_init_##NAME(queue_##NAME *q)										\
 	q->data = malloc(q->capacity*sizeof(TYPE));								\
 }																			\
 \
-void queue_expand_##NAME(queue_##NAME *q)									\
+void queue_##NAME##_expand(queue_##NAME *q)									\
 {																			\
 	q->capacity *= 2u;														\
 	q->data = realloc(q->data,q->capacity*sizeof(TYPE));					\
 }																			\
 \
-void queue_shrink_##NAME(queue_##NAME *q)									\
+void queue_##NAME##_shrink(queue_##NAME *q)									\
 {																			\
 	q->capacity /= 2u;														\
 	q->data = realloc(q->data,q->capacity*sizeof(TYPE));					\
 }																			\
 \
-void queue_push_##NAME(queue_##NAME *q,TYPE value)							\
+void queue_##NAME##_push(queue_##NAME *q,TYPE value)						\
 {																			\
 	const u32 push_index = q->start + q->size;								\
 	if(push_index == q->capacity)											\
-		queue_expand_##NAME(q);												\
+		queue_##NAME_expand(q);												\
 																			\
 	q->data[push_index] = value;											\
 	q->size++;																\
 }																			\
 \
-TYPE queue_pop_##NAME(queue_##NAME *q)										\
+TYPE queue_##NAME##_pop(queue_##NAME *q)									\
 {																			\
 	if(q->size == 0)														\
 	{																		\
@@ -64,12 +64,12 @@ TYPE queue_pop_##NAME(queue_##NAME *q)										\
 																			\
 	/* if more than two thirds of allocated space is unused we shrik it	*/	\
 	if(q->capacity > 4u && q->start + q->size < q->capacity/3u)				\
-		queue_shrink_##NAME(q);												\
+		queue_##NAME##_shrink(q);											\
 																			\
 	return removed;															\
 }																			\
 \
-void queue_cleanup_##NAME(queue_##NAME *q)									\
+void queue_##NAME##_cleanup(queue_##NAME *q)								\
 {																			\
 	q->start = 0u;															\
 	q->size = 0u;															\
@@ -77,8 +77,8 @@ void queue_cleanup_##NAME(queue_##NAME *q)									\
 	free(q->data);															\
 }																			\
 \
-void queue_reset_##NAME(queue_##NAME *q)									\
+void queue_##NAME##_reset(queue_##NAME *q)									\
 {																			\
-	queue_cleanup_##NAME(q);												\
-	queue_init_##NAME(q);													\
+	queue_##NAME##_cleanup(q);												\
+	queue_##NAME##_init(q);													\
 }														
