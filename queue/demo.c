@@ -1,18 +1,19 @@
-
 #include "queue.h"
+
+DEF_QUEUE(i32,i32)
 
 i32 main(void)
 {
-	queue q;
-	queue_init(&q,true);
+	queue_i32 q;
+	queue_init_i32(&q);
 
-	for(u32 i = 0u;i < 2000;i++)
-		queue_push(&q,i);
+	for(u32 i = 0u;i < 1000;i++)
+		queue_push_i32(&q,i);
 	
-	for(u32 i = 0u;i < 200;i++)
-		printf("%d\n",queue_pop(&q));
+	for(u32 i = 0u;i < 1000;i++)
+		queue_pop_i32(&q);
 
-	printf("%d\n",q.capacity);
+	queue_cleanup_i32(&q);
 
-	queue_cleanup(&q);
+	return 0;
 }
