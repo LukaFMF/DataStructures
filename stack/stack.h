@@ -1,55 +1,68 @@
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "../utils/types.h"
 
-typedef struct stack
-{
-	u32 size;
-	u32 capacity;
-	i32 *data;
-} stack;
-
-// first_time_init must be set only if this is the first time 
-// initializinig or if stack cleanup has been called on that particular stack  
-void stack_init(stack *s,bool first_time_init)  
-{
-	if(!first_time_init)
-		free(s->data);
-	s->size = 0u;
-	s->capacity = 8u;
-	s->data = malloc(s->capacity*sizeof(i32));
-}
-
-bool stack_is_empty(stack *s)
-{
-	return s->size == 0u ? true : false;
-}
-
-void stack_push(stack *s,i32 value)
-{
-	if(s->size == s->capacity)
-	{
-		s->capacity *= 2u;
-		s->data = realloc(s->data,s->capacity*sizeof(i32));
-	}
-	s->data[s->size] = value;
-	s->size++;
-}
-
-i32 stack_pop(stack *s)
-{
-	if(!stack_is_empty(s))
-	{
-		s->size--;
-		return s->data[s->size];
-	}
-	printf("Tried removing an element from empty stack, exiting!\n");
-	exit(-1);
-}
-
-void stack_cleanup(stack *s)
-{
-	s->size = 0u;
-	s->capacity = 0u;
-	free(s->data);
+#define DEF_STACK(NAME,TYPE)												\
+typedef struct stack_##NAME													\
+{																			\
+	u32 size;																\
+	u32 capacity;															\
+	TYPE *data;																\
+} stack_##NAME;																\
+\
+void stack_##NAME##_init(stack_##NAME *s)									\
+{																			\
+	s->size = 0u;															\
+	s->capacity = 4u;														\
+	s->data = malloc(s->capacity*sizeof(TYPE));								\
+}																			\
+\
+void stack_##NAME##_expand(stack_##NAME *s)									\
+{																			\
+	s->capacity *= 2u;														\
+	s->data = realloc(s->data,s->capacity*sizeof(TYPE));					\
+}																			\
+\
+void stack_##NAME##_shrink(stack_##NAME *s)									\
+{																			\
+	s->capacity /= 2u;														\
+	s->data = realloc(s->data,s->capacity*sizeof(TYPE));					\
+}																			\
+\
+void stack_##NAME##_push(stack_##NAME *s,TYPE value)						\
+{																			\
+	if(s->size == s->capacity)												\
+		stack_##NAME##_expand(s);											\
+																			\
+	s->data[s->size] = value;												\
+	s->size++;																\
+}																			\
+\
+TYPE stack_##NAME##_pop(stack_##NAME *s)									\
+{																			\
+	if(s->size == 0u)														\
+	{																		\
+		printf("Tried removing an element from empty stack, exiting!\n");	\
+		exit(-1);															\
+	}																		\
+																			\
+	if(3u*s->size < s->capacity)											\
+		stack_##NAME##_shrink(s);											\
+																			\
+	s->size--;																\
+	return s->data[s->size];												\
+}																			\
+\
+void stack_##NAME##_cleanup(stack_##NAME *s)								\
+{																			\
+	s->size = 0u;															\
+	s->capacity = 0u;														\
+	free(s->data);															\
+}																			\
+\
+void stack_##NAME##_reset(stack_##NAME *s)									\
+{																			\
+	stack_##NAME##_cleanup(s);												\
+	stack_##NAME##_init(s);													\
 }

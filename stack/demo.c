@@ -1,14 +1,20 @@
 #include <string.h>
+
 #include "stack.h"
+
+DEF_STACK(i32,i32)
+DEF_STACK(char,char)
 
 // evaluates an expression of positive numbers and operators(+,-,*,/) as integers, 
 // there must also be () ['(' are optional] around every sub expression, 
 // ex1. ((2 * 3) + ((3 - 1) - 4)), ex2. 2 * 3) + 3 - 1) - 4)) [optional '(']
 i32 evaluate_expression(char *expr)
 {
-	stack numbers,operators;
-	stack_init(&numbers,true);
-	stack_init(&operators,true);
+	stack_i32 numbers;
+	stack_char operators;
+	
+	stack_i32_init(&numbers);
+	stack_char_init(&operators);
 
 	char *curr = expr;
 	char number_buf[16];
@@ -16,37 +22,37 @@ i32 evaluate_expression(char *expr)
 	{
 		if(*curr == ')')
 		{
-			if(stack_is_empty(&numbers))
+			if(numbers.size == 0u)
 				goto error;
-			i32 right = stack_pop(&numbers);
+			i32 right = stack_i32_pop(&numbers);
 
-			if(stack_is_empty(&operators))
+			if(operators.size == 0u)
 				goto error;
-			i32 operator = stack_pop(&operators);
+			char operator = stack_char_pop(&operators);
 
-			if(stack_is_empty(&numbers))
+			if(numbers.size == 0u)
 				goto error;
-			i32 left = stack_pop(&numbers);
+			i32 left = stack_i32_pop(&numbers);
 
 			i32 subexpression_value;
 			switch(operator)
 			{
-				case (i32)'+':
+				case '+':
 					subexpression_value = left + right;
 					break;
-				case (i32)'-':
+				case '-':
 					subexpression_value = left - right;
 					break;
-				case (i32)'*':
+				case '*':
 					subexpression_value = left * right;
 					break;
-				case (i32)'/':
+				case '/':
 					subexpression_value = left / right;
 					break;
 				default:
 					goto error;
 			}
-			stack_push(&numbers,subexpression_value);
+			stack_i32_push(&numbers,subexpression_value);
 		}
 		else if(*curr >= '0' && *curr <= '9')
 		{
@@ -61,10 +67,10 @@ i32 evaluate_expression(char *expr)
 			}
 			number_buf[number_inx] = '\0';
 
-			stack_push(&numbers,atoi(number_buf));
+			stack_i32_push(&numbers,atoi(number_buf));
 		}
 		else if(*curr >= '*' && *curr <= '/')
-			stack_push(&operators,(i32)*curr);
+			stack_char_push(&operators,*curr);
 		else if(*curr == ' ' || *curr == '(')
 			continue;
 		else
@@ -73,10 +79,10 @@ i32 evaluate_expression(char *expr)
 	
 	if(numbers.size != 1u || operators.size != 0u)
 		goto error;
-	i32 expr_value = stack_pop(&numbers);
+	i32 expr_value = stack_i32_pop(&numbers);
 
-	stack_cleanup(&numbers);
-	stack_cleanup(&operators);
+	stack_i32_cleanup(&numbers);
+	stack_char_cleanup(&operators);
 
 	return expr_value;
 
