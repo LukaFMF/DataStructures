@@ -1,18 +1,21 @@
-
 #include "priority_queue.h"
 
+DEF_PRIORITY_QUEUE(i32,i32)
 i32 main(void)
 {
-	queue q;
-	queue_init(&q,true);
+	priority_queue_i32 pq;
+	priority_queue_i32_init(&pq);
 
-	for(u32 i = 0u;i < 2000;i++)
-		queue_push(&q,i);
 	
-	for(u32 i = 0u;i < 200;i++)
-		printf("%d\n",queue_pop(&q));
+	priority_queue_i32_prioritized_insert(&pq,43,4);
+	priority_queue_i32_prioritized_insert(&pq,-2,2);
+	priority_queue_i32_prioritized_insert(&pq,-43,1);
+	priority_queue_i32_prioritized_insert(&pq,5,3);
+	
+	while(pq.size != 0u)
+		printf("%d\n",priority_queue_i32_pop(&pq));
 
-	printf("%d\n",q.capacity);
+	priority_queue_i32_cleanup(&pq);
 
-	queue_cleanup(&q);
+	return 0;
 }
