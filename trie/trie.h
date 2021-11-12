@@ -16,7 +16,7 @@ typedef struct trie_result
 void trie_result_init(trie_result *tr)
 {
 	tr->is_empty = true;
-	dyn_array_char_ptr_init(&tr->words);
+	dyn_array_char_ptr_init(&tr->words,0);
 }
 
 void trie_result_cleanup(trie_result *tr)
@@ -77,7 +77,7 @@ void trie_init(trie *t)
 	t->empty_str = malloc(sizeof(trie_node));
 	t->empty_str->character = '\0';
 	t->empty_str->word_mark = false;
-	dyn_array_t_node_ptr_init(&t->empty_str->next_nodes);
+	dyn_array_t_node_ptr_init(&t->empty_str->next_nodes,0);
 }
 
 void trie_insert(trie *t,const char *str)
@@ -108,7 +108,7 @@ void trie_insert(trie *t,const char *str)
 			trie_node *new = malloc(sizeof(trie_node));
 			new->character = curr_char;
 			new->word_mark = false;
-			dyn_array_t_node_ptr_init(&new->next_nodes);
+			dyn_array_t_node_ptr_init(&new->next_nodes,0);
 
 			dyn_array_t_node_ptr_insert(&curr_node->next_nodes,insert_inx,new);
 		}
