@@ -14,12 +14,15 @@ typedef struct dyn_array_##NAME												\
 	TYPE *data;																\
 } dyn_array_##NAME;															\
 \
-void dyn_array_##NAME##_init(dyn_array_##NAME *a)							\
+void dyn_array_##NAME##_init(dyn_array_##NAME *a,u32 init_cap)				\
 {																			\
-	const u32 init_cap = 4u;												\
+	u32 curr_cap = 4;														\
+	while(curr_cap < init_cap)												\
+		curr_cap *= 2;														\
+																			\
 	a->size = 0u;															\
-	a->capacity = init_cap;													\
-	a->data = malloc(init_cap*sizeof(TYPE));								\
+	a->capacity = curr_cap;													\
+	a->data = malloc(curr_cap*sizeof(TYPE));								\
 }																			\
 \
 void dyn_array_##NAME##_expand(dyn_array_##NAME *a)							\
@@ -82,8 +85,8 @@ void dyn_array_##NAME##_cleanup(dyn_array_##NAME *a)						\
 	free(a->data);															\
 }																			\
 \
-void dyn_array_##NAME##_reset(dyn_array_##NAME *a)							\
+void dyn_array_##NAME##_reset(dyn_array_##NAME *a,u32 init_cap)				\
 {																			\
 	dyn_array_##NAME##_cleanup(a);											\
-	dyn_array_##NAME##_init(a);												\
+	dyn_array_##NAME##_init(a,init_cap);									\
 }
