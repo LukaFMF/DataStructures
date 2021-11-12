@@ -6,7 +6,7 @@
 
 // dyn_array_T_expand and dyn_array_T_shrink
 // should NOT be called manually
-#define def_dyn_array(NAME,TYPE)											\
+#define DEF_DYN_ARRAY(NAME,TYPE)											\
 typedef struct dyn_array_##NAME												\
 {																			\
 	u32 size;																\

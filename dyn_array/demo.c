@@ -2,7 +2,7 @@
 
 #include <time.h>
 
-def_dyn_array(i32,i32)
+DEF_DYN_ARRAY(i32,i32)
 
 void print_arr(const struct dyn_array_i32 *a)
 {
