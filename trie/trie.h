@@ -6,7 +6,7 @@
 #include "../dyn_array/dyn_array.h"
 
 // define dynamic array of strings
-def_dyn_array(char_ptr,char*)
+DEF_DYN_ARRAY(char_ptr,char*)
 typedef struct trie_result
 {
 	bool is_empty; // signals if the trie contains no records of this result type
@@ -62,7 +62,7 @@ void trie_result_to_file(trie_result *tr,const char *filename)
 typedef struct trie_node trie_node;
 
 // definition for all the generic dyn_array things
-def_dyn_array(t_node_ptr,trie_node*)
+DEF_DYN_ARRAY(t_node_ptr,trie_node*)
 typedef struct trie_node
 {
 	char character;
