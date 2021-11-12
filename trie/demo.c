@@ -37,6 +37,12 @@ bool verify_word(const char *str)
 void read_file_into_trie(trie *t,const char *filename)
 {
 	FILE *file = fopen(filename,"r");
+	if(!file)
+	{
+		printf("File \"%s\" could not be opened. Exiting!\n",filename);
+		exit(1);
+	}
+
 	fseek(file,0u,SEEK_END);
 	const u64 file_size = ftell(file);
 	rewind(file);
@@ -61,7 +67,6 @@ void read_file_into_trie(trie *t,const char *filename)
 			case '(':
 			case ')':
 			case '\n':
-			case '\r':
 			case '\"':
 			{
 				file_contents[i] = '\0';

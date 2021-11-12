@@ -39,11 +39,18 @@ void trie_result_to_file(trie_result *tr,const char *filename)
 {
 	if(tr->is_empty)
 	{
-		printf("Write attempt of empty trie_result to file \"%s\". No file will be created!",filename);
+		printf("Write attempt of empty trie_result to file \"%s\". No file will be created!\n",filename);
 		return;
 	}
 
 	FILE *file = fopen(filename,"w");
+	if(!file)
+	{
+		printf("Attempted write to file \"%s\", because it could not be opened."
+		" Exiting!\n",filename);
+		exit(1);
+	}
+
 	for(u32 i = 0u;i < tr->words.size;i++)
 		fprintf(file,"%s\n",tr->words.data[i]);
 
