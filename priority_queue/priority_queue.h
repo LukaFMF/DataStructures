@@ -69,7 +69,7 @@ void priority_queue_##NAME##_prioritized_insert(priority_queue_##NAME *pq,f32 pr
 	pq->size++;																						\
 }																									\
 \
-i32 priority_queue_##NAME##_pop(priority_queue_##NAME *pq)											\
+TYPE priority_queue_##NAME##_pop(priority_queue_##NAME *pq)											\
 {																									\
 	if(pq->size == 0u)																				\
 	{																								\
