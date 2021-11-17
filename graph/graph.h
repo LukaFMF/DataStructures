@@ -3,7 +3,7 @@
 
 #include "../utils/types.h"
 #include "../dyn_array/dyn_array.h"
-#include "../priority_queue/priority_queue.h"
+#include "../queue/queue.h"
 
 
 typedef struct edge
@@ -12,8 +12,8 @@ typedef struct edge
 	f32 weight;
 } edge;
 
-DEF_PRIORITY_QUEUE(edge,edge)
-DEF_DYN_ARRAY(pq_edge,priority_queue_edge)
+DEF_QUEUE(edge,edge)
+DEF_DYN_ARRAY(q_edge,queue_edge)
 
 typedef struct graph
 {
@@ -22,7 +22,7 @@ typedef struct graph
 
 	// array where each index represents a vertex and value at index is a 
 	// priority queue of edges the vertex has
-	dyn_array_pq_edge edges;
+	dyn_array_q_edge edges;
 } graph;
 
 void graph_init(graph *g,const char *filename,bool directed,bool weighted)
@@ -50,11 +50,11 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 		exit(1);
 	}
 
-	dyn_array_pq_edge_init(&g->edges,num_verts);
+	dyn_array_q_edge_init(&g->edges,num_verts);
 
 	// initialize priority queues for vertices
 	for(u32 i = 0u;i < num_verts;i++)
-		priority_queue_edge_init(&g->edges.data[i]);
+		queue_edge_init(&g->edges.data[i]);
 	
 	u32 src;
 	u32 dst;
@@ -75,13 +75,13 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 			weight = 1.f;
 
 		edge e = {.dst = dst,.weight = weight};
-		priority_queue_edge_prioritized_insert(&g->edges.data[src],weight,e);
+		queue_edge_push(&g->edges.data[src],e);
 
 		// if the graph isnt directed the edge must also connect the dst vertex to the src
 		if(!directed)
 		{
 			e.dst = src;
-			priority_queue_edge_prioritized_insert(&g->edges.data[dst],weight,e);
+			queue_edge_push(&g->edges.data[dst],e);
 		}
 	}
 	fclose(file);
@@ -93,9 +93,9 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 void graph_cleanup(graph *g)
 {
 	for(u32 i = 0u;i < g->edges.size;i++)
-		priority_queue_edge_cleanup(&g->edges.data[i]);
+		queue_edge_cleanup(&g->edges.data[i]);
 
-	dyn_array_pq_edge_cleanup(&g->edges);
+	dyn_array_q_edge_cleanup(&g->edges);
 }
 
 void graph_reset(graph *g,const char *filename,bool directed,bool weighted)

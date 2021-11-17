@@ -37,7 +37,7 @@ void queue_##NAME##_push(queue_##NAME *q,TYPE value)						\
 {																			\
 	const u32 push_index = q->start + q->size;								\
 	if(push_index == q->capacity)											\
-		queue_##NAME_expand(q);												\
+		queue_##NAME##_expand(q);												\
 																			\
 	q->data[push_index] = value;											\
 	q->size++;																\

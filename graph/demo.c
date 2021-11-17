@@ -1,23 +1,24 @@
 #include <math.h>
 
 #include "graph.h"
-
-// invalidates graph g since it partially destorys its contents
 f32 shortest_distance_with_m_edges(graph *g,u32 src,u32 dst,u32 m)
 {
 	if(m == 0u)
 		return src == dst ? 0.f : INFINITY;
 
-	priority_queue_edge *next_nodes = &g->edges.data[src];
+	queue_edge *next_nodes = &g->edges.data[src];
+	const u32 initial_size = next_nodes->size;
 
 	f32 least_cost = INFINITY;
-	while(next_nodes->size != 0u)
+	for(u32 i = 0u;i < initial_size;i++)
 	{
-		const edge next_info = priority_queue_edge_pop(next_nodes);
+		const edge next_info = queue_edge_pop(next_nodes);
 		const f32 curr_least_cost = next_info.weight + shortest_distance_with_m_edges(g,next_info.dst,dst,m - 1);
 		
 		if(curr_least_cost < least_cost)
 			least_cost = curr_least_cost;
+
+		queue_edge_push(next_nodes,next_info);
 	}
 
 	return least_cost;
@@ -29,7 +30,7 @@ f32 shortest_distance_with_m_edges_backtrack(graph *g,u32 src,u32 dst,u32 m)
 	if(m == 0u)
 		return src == dst ? 0.f : INFINITY;
 
-	priority_queue_edge *next_nodes = &g->edges.data[src];
+	queue_edge *next_nodes = &g->edges.data[src];
 
 	f32 least_cost = INFINITY;
 	for(u32 i = 0u;i < next_nodes->size;i++)
@@ -47,17 +48,15 @@ f32 shortest_distance_with_m_edges_backtrack(graph *g,u32 src,u32 dst,u32 m)
 i32 main()
 {
 	graph g;
-	graph_init(&g,"big.g",true,true);
+	graph_init(&g,"exampleV.g",true,true);
 
-	const f32 least_cost = shortest_distance_with_m_edges(&g,3u,2631u,5u);
+	const f32 least_cost = shortest_distance_with_m_edges(&g,2u,4u,9u);
 	if(least_cost < INFINITY)
 		printf("%.1f\n",least_cost);
 	else
 		printf("No viable path found!\n");
 
-	graph_reset(&g,"big.g",true,true);
-
-	const f32 least_cost_backtrack = shortest_distance_with_m_edges_backtrack(&g,3u,2631u,5u);
+	const f32 least_cost_backtrack = shortest_distance_with_m_edges_backtrack(&g,2u,4u,9u);
 	if(least_cost_backtrack < INFINITY)
 		printf("%.1f\n",least_cost_backtrack);
 	else
