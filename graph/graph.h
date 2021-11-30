@@ -17,12 +17,15 @@ DEF_DYN_ARRAY(q_edge,queue_edge)
 
 typedef struct graph
 {
+	u32 size; // number of vertices in a graph
+
 	bool directed;
 	bool weighted;
 
 	// array where each index represents a vertex and value at index is a 
 	// priority queue of edges the vertex has
 	dyn_array_q_edge edges;
+	bool *visited_vertices;
 } graph;
 
 void graph_init(graph *g,const char *filename,bool directed,bool weighted)
@@ -50,10 +53,11 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 		exit(1);
 	}
 
-	dyn_array_q_edge_init(&g->edges,num_verts);
+	g->size = num_verts;
+	dyn_array_q_edge_init(&g->edges,g->size);
 
 	// initialize priority queues for vertices
-	for(u32 i = 0u;i < num_verts;i++)
+	for(u32 i = 0u;i < g->size;i++)
 		queue_edge_init(&g->edges.data[i]);
 	
 	u32 src;
@@ -88,6 +92,8 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 
 	g->directed = directed;
 	g->weighted = weighted;
+	g->visited_vertices = malloc(g->size*sizeof(bool));
+	memset(g->visited_vertices,false,g->size*sizeof(bool));
 }
 
 void graph_cleanup(graph *g)
@@ -96,6 +102,7 @@ void graph_cleanup(graph *g)
 		queue_edge_cleanup(&g->edges.data[i]);
 
 	dyn_array_q_edge_cleanup(&g->edges);
+	free(g->visited_vertices);
 }
 
 void graph_reset(graph *g,const char *filename,bool directed,bool weighted)
