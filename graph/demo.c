@@ -33,7 +33,7 @@ f32 least_cost_path_with_m_edges(graph *g,u32 src,u32 dst,u32 m)
 i32 main()
 {
 	graph g;
-	graph_init(&g,"exampleV.g",true,true);
+	graph_init(&g,"exampleV.grph",true,true);
 
 	const f32 min_cost = least_cost_path_with_m_edges(&g,2u,4u,9u);
 	if(min_cost < INFINITY)
