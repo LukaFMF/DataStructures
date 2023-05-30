@@ -12,7 +12,7 @@ i32 main(void)
 	priority_queue_i32_prioritized_insert(&pq,-43,1);
 	priority_queue_i32_prioritized_insert(&pq,5,3);
 	
-	while(pq.size != 0u)
+	while(pq.size != 0)
 		printf("%d\n",priority_queue_i32_pop(&pq));
 
 	priority_queue_i32_cleanup(&pq);

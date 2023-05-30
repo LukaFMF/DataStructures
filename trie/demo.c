@@ -5,8 +5,8 @@
 
 bool verify_word(const char *str)
 {
-	const u32 len = strlen(str);
-	if(len == 0u)
+	const size_t len = strlen(str);
+	if(len == 0)
 		return false;
 
 	// first character filter
@@ -27,7 +27,7 @@ bool verify_word(const char *str)
 	}		
 	
 	// valid word must contain at least one letter
-	for(u32 i = 0u;i < len;i++)
+	for(size_t i = 0;i < len;i++)
 		if(str[i] >= 'a' && str[i] <= 'z')
 			return true;
 
@@ -43,16 +43,16 @@ void read_file_into_trie(trie *t,const char *filename)
 		exit(1);
 	}
 
-	fseek(file,0u,SEEK_END);
+	fseek(file,0,SEEK_END);
 	const u64 file_size = ftell(file);
 	rewind(file);
 
 	char *file_contents = malloc(file_size);
-	fread(file_contents,file_size,1u,file);
+	fread(file_contents,file_size,1,file);
 	fclose(file);
 
 	char *str_start = file_contents;
-	for(u64 i = 0u;i < file_size;i++)
+	for(u64 i = 0;i < file_size;i++)
 	{
 		const char curr_char = file_contents[i];
 		switch(curr_char)

@@ -2,16 +2,16 @@
 
 #include "graph.h"
 
-f32 least_cost_path_with_m_edges(graph *g,u32 src,u32 dst,u32 m)
+f32 least_cost_path_with_m_edges(graph *g,size_t src,size_t dst,u32 m)
 {
-	if(m == 0u)
+	if(m == 0)
 		return src == dst ? 0.f : INFINITY;
 
 	g->visited_vertices[src] = true;
 	queue_edge *next_nodes = &g->edges.data[src];
 
 	f32 least_cost = INFINITY;
-	for(u32 i = 0u;i < next_nodes->size;i++)
+	for(size_t i = 0;i < next_nodes->size;i++)
 	{
 		const edge next_info = next_nodes->data[next_nodes->start + i];
 		if(!g->visited_vertices[next_info.dst])
@@ -35,13 +35,13 @@ i32 main()
 	graph g;
 	graph_init(&g,"exampleV.grph",true,true);
 
-	const f32 min_cost = least_cost_path_with_m_edges(&g,2u,4u,9u);
+	const f32 min_cost = least_cost_path_with_m_edges(&g,2,4,9);
 	if(min_cost < INFINITY)
 		printf("%.1f\n",min_cost);
 	else
 		printf("No viable path found!\n");
 
-	// for(u32 i = 0;i < g.size;i++)
+	// for(size_t i = 0;i < g.size;i++)
 	// 	printf("%.2d - %s\n",i,g.visited_vertices[i] ? "visited" : "not visited");
 
 	graph_cleanup(&g);

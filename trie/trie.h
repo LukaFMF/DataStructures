@@ -22,7 +22,7 @@ void trie_result_init(trie_result *tr)
 void trie_result_cleanup(trie_result *tr)
 {
 	// first we need to free memory occupied by strings in array
-	for(u32 i = 0u;i < tr->words.size;i++)
+	for(size_t i = 0;i < tr->words.size;i++)
 		free(tr->words.data[i]);
 
 	dyn_array_char_ptr_cleanup(&tr->words);
@@ -51,7 +51,7 @@ void trie_result_to_file(trie_result *tr,const char *filename)
 		exit(1);
 	}
 
-	for(u32 i = 0u;i < tr->words.size;i++)
+	for(size_t i = 0;i < tr->words.size;i++)
 		fprintf(file,"%s\n",tr->words.data[i]);
 
 	fclose(file);
@@ -72,15 +72,15 @@ typedef struct trie_node
 
 typedef struct trie
 {
-	u32 size;
-	u32 max_str_len;
+	size_t size;
+	size_t max_str_len;
 	trie_node *empty_str;
 } trie;
 
 void trie_init(trie *t)
 {
-	t->size = 0u;
-	t->max_str_len = 0u; 
+	t->size = 0;
+	t->max_str_len = 0; 
 	t->empty_str = malloc(sizeof(trie_node));
 	t->empty_str->character = '\0';
 	t->empty_str->word_mark = false;
@@ -91,13 +91,13 @@ void trie_insert(trie *t,const char *str)
 {
 	trie_node *curr_node = t->empty_str;
 
-	u32 curr_depth = 0u;
-	for(u32 i = 0u;i < strlen(str);i++)
+	size_t curr_depth = 0;
+	for(size_t i = 0;i < strlen(str);i++)
 	{
-		u32 insert_inx;
+		size_t insert_inx;
 		bool found = false;
 		const char curr_char = str[i];
-		for(insert_inx = 0u;insert_inx < curr_node->next_nodes.size;insert_inx++)
+		for(insert_inx = 0;insert_inx < curr_node->next_nodes.size;insert_inx++)
 		{
 			const char possible_next_char = curr_node->next_nodes.data[insert_inx]->character;
 			if(curr_char == possible_next_char)
@@ -134,7 +134,7 @@ void trie_insert(trie *t,const char *str)
 		t->max_str_len = curr_depth;
 }
 
-void trie_sort_rec(trie_node *curr,trie_result *tr,char *str,u32 depth)
+void trie_sort_rec(trie_node *curr,trie_result *tr,char *str,size_t depth)
 {
 	if(depth > 0)
 		str[depth-1] = curr->character;
@@ -143,21 +143,21 @@ void trie_sort_rec(trie_node *curr,trie_result *tr,char *str,u32 depth)
 	if(curr->word_mark)
 	{
 		str[depth] = '\0';
-		const u32 len = strlen(str); 
+		const size_t len = strlen(str); 
 		char *word = malloc(len + 1);
 		memcpy(word,str,len + 1);
 
 		dyn_array_char_ptr_append(&tr->words,word);
 	}
 
-	for(u32 i = 0u;i < curr->next_nodes.size;i++)
+	for(size_t i = 0;i < curr->next_nodes.size;i++)
 		trie_sort_rec(curr->next_nodes.data[i],tr,str,depth + 1);
 }
 
 void trie_sort(trie *t,trie_result *tr)
 {
 	char *s = malloc(t->max_str_len + 1);
-	trie_sort_rec(t->empty_str,tr,s,0u);
+	trie_sort_rec(t->empty_str,tr,s,0);
 	tr->is_empty = false;
 	free(s);
 }
@@ -166,14 +166,14 @@ void trie_query(trie *t,trie_result *tr,const char *str)
 {
 	trie_node *curr_node = t->empty_str;
 
-	u32 depth = 0u;
-	const u32 len = strlen(str);
-	for(u32 i = 0u;i < len;i++)
+	size_t depth = 0;
+	const size_t len = strlen(str);
+	for(size_t i = 0;i < len;i++)
 	{
-		u32 next_inx;
+		size_t next_inx;
 		bool char_not_found = true;
 		const char curr_char = str[i];
-		for(next_inx = 0u;next_inx < curr_node->next_nodes.size;next_inx++)
+		for(next_inx = 0;next_inx < curr_node->next_nodes.size;next_inx++)
 		{
 			if(curr_char == curr_node->next_nodes.data[next_inx]->character)
 			{
@@ -203,7 +203,7 @@ void trie_query(trie *t,trie_result *tr,const char *str)
 
 void trie_cleanup_rec(trie_node *curr)
 {
-	for(u32 i = 0u;i < curr->next_nodes.size;i++)
+	for(size_t i = 0;i < curr->next_nodes.size;i++)
 		trie_cleanup_rec(curr->next_nodes.data[i]);
 
 	dyn_array_t_node_ptr_cleanup(&curr->next_nodes);
@@ -213,8 +213,8 @@ void trie_cleanup_rec(trie_node *curr)
 void trie_cleanup(trie *t)
 {
 	trie_cleanup_rec(t->empty_str);
-	t->size = 0u;
-	t->max_str_len = 0u;
+	t->size = 0;
+	t->max_str_len = 0;
 }
 
 void trie_reset(trie *t)

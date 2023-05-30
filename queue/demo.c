@@ -5,15 +5,15 @@ DEF_QUEUE(i32,i32)
 i32 main(void)
 {
 	queue_i32 q;
-	queue_init_i32(&q);
+	queue_i32_init(&q);
 
-	for(u32 i = 0u;i < 1000;i++)
-		queue_push_i32(&q,i);
+	for(size_t i = 0;i < 1000;i++)
+		queue_i32_push(&q,i);
 	
-	for(u32 i = 0u;i < 1000;i++)
-		queue_pop_i32(&q);
+	for(size_t i = 0;i < 1000;i++)
+		queue_i32_pop(&q);
 
-	queue_cleanup_i32(&q);
+	queue_i32_cleanup(&q);
 
 	return 0;
 }

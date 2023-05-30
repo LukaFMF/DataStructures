@@ -7,41 +7,41 @@
 #define DEF_PRIORITY_QUEUE(NAME,TYPE)																\
 typedef struct priority_queue_##NAME																\
 {																									\
-	u32 start;																						\
-	u32 size;																						\
-	u32 capacity;																					\
+	size_t start;																					\
+	size_t size;																					\
+	size_t capacity;																				\
 	f32 *priorities;																				\
 	TYPE *data;																						\
 } priority_queue_##NAME;																			\
 \
 void priority_queue_##NAME##_init(priority_queue_##NAME *pq)										\
 {																									\
-	pq->start = 0u;																					\
-	pq->size = 0u;																					\
-	pq->capacity = 4u;																				\
+	pq->start = 0;																					\
+	pq->size = 0;																					\
+	pq->capacity = 4;																				\
 	pq->priorities = malloc(pq->capacity*sizeof(f32));												\
 	pq->data = malloc(pq->capacity*sizeof(TYPE));													\
 }																									\
 \
 void priority_queue_##NAME##_expand(priority_queue_##NAME *pq)										\
 {																									\
-	pq->capacity *= 2u;																				\
+	pq->capacity *= 2;																				\
 	pq->priorities = realloc(pq->priorities,pq->capacity*sizeof(f32));								\
 	pq->data = realloc(pq->data,pq->capacity*sizeof(TYPE));											\
 }																									\
 \
 void priority_queue_##NAME##_shrink(priority_queue_##NAME *pq)										\
 {																									\
-	pq->capacity /= 2u;																				\
+	pq->capacity /= 2;																				\
 	pq->priorities = realloc(pq->priorities,pq->capacity*sizeof(TYPE));								\
 	pq->data = realloc(pq->data,pq->capacity*sizeof(TYPE));											\
 }																									\
 \
 void priority_queue_##NAME##_prioritized_insert(priority_queue_##NAME *pq,f32 priority,TYPE value)	\
 {																									\
-	u32 insert_inx = pq->start;																		\
+	size_t insert_inx = pq->start;																	\
 	bool found = false;																				\
-	const u32 last_inx = pq->start + pq->size;														\
+	const size_t last_inx = pq->start + pq->size;													\
 	for(;insert_inx < last_inx;insert_inx++)														\
 	{																								\
 		if(priority <= pq->priorities[insert_inx])													\
@@ -59,7 +59,7 @@ void priority_queue_##NAME##_prioritized_insert(priority_queue_##NAME *pq,f32 pr
 	{																								\
 		f32 *priprity_ptr = pq->priorities + insert_inx;											\
 		TYPE *data_ptr = pq->data + insert_inx;														\
-		const u32 num_elements = pq->size - insert_inx;												\
+		const size_t num_elements = pq->size - insert_inx;											\
 		memmove(priprity_ptr + 1,priprity_ptr,num_elements*sizeof(f32));							\
 		memmove(data_ptr + 1,data_ptr,num_elements*sizeof(TYPE));									\
 	}																								\
@@ -71,7 +71,7 @@ void priority_queue_##NAME##_prioritized_insert(priority_queue_##NAME *pq,f32 pr
 \
 TYPE priority_queue_##NAME##_pop(priority_queue_##NAME *pq)											\
 {																									\
-	if(pq->size == 0u)																				\
+	if(pq->size == 0)																				\
 	{																								\
 		printf("Tried removing an element from empty priority queue, exiting!\n");					\
 		exit(-1);																					\
@@ -82,15 +82,15 @@ TYPE priority_queue_##NAME##_pop(priority_queue_##NAME *pq)											\
 	pq->size--;																						\
 																									\
 	/* move the queue to the start of the array to not waste space */								\
-	if(pq->start != 0u && pq->start > pq->size)														\
+	if(pq->start != 0 && pq->start > pq->size)														\
 	{																								\
 		memcpy(pq->priorities,pq->data + pq->start,pq->size*sizeof(f32));							\
 		memcpy(pq->data,pq->data + pq->start,pq->size*sizeof(TYPE));								\
-		pq->start = 0u;																				\
+		pq->start = 0;																				\
 	}																								\
 																									\
 	/* if more than two thirds of allocated space is unused we shrik it	*/							\
-	if(pq->capacity > 4u && pq->start + pq->size < pq->capacity/3u)									\
+	if(pq->capacity > 4 && pq->start + pq->size < pq->capacity/3)									\
 		priority_queue_##NAME##_shrink(pq);															\
 																									\
 	return removed;																					\
@@ -98,9 +98,9 @@ TYPE priority_queue_##NAME##_pop(priority_queue_##NAME *pq)											\
 \
 void priority_queue_##NAME##_cleanup(priority_queue_##NAME *pq)										\
 {																									\
-	pq->start = 0u;																					\
-	pq->size = 0u;																					\
-	pq->capacity = 0u;																				\
+	pq->start = 0;																					\
+	pq->size = 0;																					\
+	pq->capacity = 0;																				\
 	free(pq->priorities);																			\
 	free(pq->data);																					\
 }																									\

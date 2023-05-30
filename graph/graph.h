@@ -8,7 +8,7 @@
 
 typedef struct edge
 {
-	u32 dst;
+	size_t dst;
 	f32 weight;
 } edge;
 
@@ -17,7 +17,7 @@ DEF_DYN_ARRAY(q_edge,queue_edge)
 
 typedef struct graph
 {
-	u32 size; // number of vertices in a graph
+	size_t size; // number of vertices in a graph
 
 	bool directed;
 	bool weighted;
@@ -38,9 +38,9 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 	}
 	
 	// first line contains number of vertices
-	u32 num_verts;
+	size_t num_verts;
 	i32 ret_code;
-	ret_code = fscanf(file,"%u",&num_verts);
+	ret_code = fscanf(file,"%llu",&num_verts);
 	if(ret_code == EOF)
 	{
 		printf("File \"%s\" is empty. Exiting!\n",filename);
@@ -57,13 +57,13 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 	dyn_array_q_edge_init(&g->edges,g->size);
 
 	// initialize priority queues for vertices
-	for(u32 i = 0u;i < g->size;i++)
+	for(size_t i = 0;i < g->size;i++)
 		queue_edge_init(&g->edges.data[i]);
 	
-	u32 src;
-	u32 dst;
+	size_t src;
+	size_t dst;
 	f32 weight;
-	while((ret_code = fscanf(file,"%u %f %u",&src,&weight,&dst)))
+	while((ret_code = fscanf(file,"%llu %f %llu",&src,&weight,&dst)))
 	{
 		if(ret_code == EOF)
 			break;
@@ -98,7 +98,7 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 
 void graph_cleanup(graph *g)
 {
-	for(u32 i = 0u;i < g->edges.size;i++)
+	for(size_t i = 0;i < g->edges.size;i++)
 		queue_edge_cleanup(&g->edges.data[i]);
 
 	dyn_array_q_edge_cleanup(&g->edges);

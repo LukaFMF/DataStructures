@@ -6,20 +6,20 @@ DEF_DYN_ARRAY(i32,i32)
 
 void print_arr(const struct dyn_array_i32 *a)
 {
-	for(u32 i = 0u;i < a->size;i++)
+	for(size_t i = 0;i < a->size;i++)
 		printf("%d ",a->data[i]);
-	printf("-- %d\n",a->capacity);
+	printf("-- %llu\n",a->capacity);
 }
 
 i32 main(void)
 {
 	srand(time(0));
 	struct dyn_array_i32 a;
-	dyn_array_i32_init(&a,0u);
+	dyn_array_i32_init(&a,0);
 
-	for(u32 n = 0;n < 100;n++)
+	for(size_t n = 0;n < 100;n++)
 	{
-		for(u32 i = 0;i < 100;i++)
+		for(size_t i = 0;i < 100;i++)
 			dyn_array_i32_insert(&a,rand() % (a.size + 1),rand() % 100 + 1);
 
 		//print_arr(&a);

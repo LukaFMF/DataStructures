@@ -22,15 +22,15 @@ i32 evaluate_expression(char *expr)
 	{
 		if(*curr == ')')
 		{
-			if(numbers.size == 0u)
+			if(numbers.size == 0)
 				goto error;
 			i32 right = stack_i32_pop(&numbers);
 
-			if(operators.size == 0u)
+			if(operators.size == 0)
 				goto error;
 			char operator = stack_char_pop(&operators);
 
-			if(numbers.size == 0u)
+			if(numbers.size == 0)
 				goto error;
 			i32 left = stack_i32_pop(&numbers);
 
@@ -57,7 +57,7 @@ i32 evaluate_expression(char *expr)
 		else if(*curr >= '0' && *curr <= '9')
 		{
 			number_buf[0] = *curr;
-			u32 number_inx = 1;
+			size_t number_inx = 1;
 
 			while(*(curr + 1) >= '0' && *(curr + 1) <= '9')
 			{
@@ -77,7 +77,7 @@ i32 evaluate_expression(char *expr)
 			goto error;
 	}
 	
-	if(numbers.size != 1u || operators.size != 0u)
+	if(numbers.size != 1 || operators.size != 0)
 		goto error;
 	i32 expr_value = stack_i32_pop(&numbers);
 
@@ -93,7 +93,7 @@ i32 evaluate_expression(char *expr)
 
 i32 main(void)
 {
-	const u32 max_input_size = 101;
+	const size_t max_input_size = 101;
 
 	char input[max_input_size];
 	printf("Expresion to evaluate: ");
