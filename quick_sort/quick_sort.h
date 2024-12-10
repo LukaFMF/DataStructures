@@ -1,13 +1,11 @@
-#include "../utils/types.h"
-
 #define DEF_QUICK_SORT(NAME,TYPE)																	\
-inline void swap_##NAME(TYPE *a,TYPE *b)															\
+void swap_##NAME(TYPE *a,TYPE *b)																	\
 {																									\
 	TYPE placeholder = *a;																			\
 	*a = *b;																						\
 	*b = placeholder;																				\
 }																									\
-\		
+\
 void quick_sort_##NAME(TYPE *arr,size_t n,bool (*cmp)(TYPE,TYPE))									\
 {																									\
 	TYPE *beg = arr;																				\

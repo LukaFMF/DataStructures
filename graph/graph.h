@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <stdint.h>
 
-#include "../utils/types.h"
 #include "../dyn_array/dyn_array.h"
 #include "../queue/queue.h"
-
 
 typedef struct edge
 {
 	size_t dst;
-	f32 weight;
+	float weight;
 } edge;
+
 
 DEF_QUEUE(edge,edge)
 DEF_DYN_ARRAY(q_edge,queue_edge)
@@ -39,7 +40,7 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 	
 	// first line contains number of vertices
 	size_t num_verts;
-	i32 ret_code;
+	int32_t ret_code;
 	ret_code = fscanf(file,"%llu",&num_verts);
 	if(ret_code == EOF)
 	{
@@ -62,7 +63,7 @@ void graph_init(graph *g,const char *filename,bool directed,bool weighted)
 	
 	size_t src;
 	size_t dst;
-	f32 weight;
+	float weight;
 	while((ret_code = fscanf(file,"%llu %f %llu",&src,&weight,&dst)))
 	{
 		if(ret_code == EOF)

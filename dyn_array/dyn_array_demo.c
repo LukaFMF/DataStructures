@@ -1,6 +1,8 @@
+#include <time.h>
+
+#include "../utils/types.h"
 #include "dyn_array.h"
 
-#include <time.h>
 
 DEF_DYN_ARRAY(i32,i32)
 
@@ -25,6 +27,6 @@ i32 main(void)
 		//print_arr(&a);
 		dyn_array_i32_reset(&a,0);
 	}
-
+	
 	return 0;
 }

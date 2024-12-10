@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../utils/types.h"
-
 #define DEF_STACK(NAME,TYPE)																		\
 typedef struct stack_##NAME																			\
 {																									\

@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../utils/types.h"
-
 #define DEF_PRIORITY_QUEUE(NAME,TYPE)																\
 typedef struct priority_queue_##NAME																\
 {																									\

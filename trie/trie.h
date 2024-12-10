@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 
-#include "../utils/types.h"
 #include "../dyn_array/dyn_array.h"
 
 // define dynamic array of strings
@@ -59,10 +59,10 @@ void trie_result_to_file(trie_result *tr,const char *filename)
 
 
 // forward declaration for trie node
-typedef struct trie_node trie_node;
+struct trie_node;
 
 // definition for all the generic dyn_array things
-DEF_DYN_ARRAY(t_node_ptr,trie_node*)
+DEF_DYN_ARRAY(t_node_ptr,struct trie_node*)
 typedef struct trie_node
 {
 	char character;

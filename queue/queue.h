@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../utils/types.h"
-
 #define DEF_QUEUE(NAME,TYPE)																		\
 typedef struct queue_##NAME																			\
 {																									\

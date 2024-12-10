@@ -1,2 +1,10 @@
+# executables
+bin/
 *.exe
+
+# object files
+obj/
+*.o
+
+# vs code workspace settings
 /.vscode

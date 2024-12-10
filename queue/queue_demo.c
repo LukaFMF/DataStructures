@@ -1,3 +1,4 @@
+#include "../utils/types.h"
 #include "queue.h"
 
 DEF_QUEUE(i32,i32)

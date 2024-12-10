@@ -1,5 +1,6 @@
 #include <string.h>
 
+#include "../utils/types.h"
 #include "stack.h"
 
 DEF_STACK(i32,i32)

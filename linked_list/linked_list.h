@@ -1,14 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../utils/types.h"
-
 #define DEF_LINKED_LIST(NAME,TYPE)																	\
-typedef struct link_node_##NAME link_node_##NAME;													\
+struct link_node_##NAME;																			\
 typedef struct link_node_##NAME																		\
 {																									\
 	TYPE data;																						\
-	link_node_##NAME *next;																			\
+	struct link_node_##NAME *next;																	\
 } link_node_##NAME;																					\
 \
 typedef struct linked_list_##NAME																	\

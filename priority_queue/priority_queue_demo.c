@@ -1,3 +1,4 @@
+#include "../utils/types.h"
 #include "priority_queue.h"
 
 DEF_PRIORITY_QUEUE(i32,i32)

@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "../utils/types.h"
-
 // dyn_array_T_expand and dyn_array_T_shrink
 // should NOT be called manually
 #define DEF_DYN_ARRAY(NAME,TYPE)																	\

@@ -1,3 +1,4 @@
+#include "../utils/types.h"
 #include "linked_list.h"
 
 DEF_LINKED_LIST(i32,i32)

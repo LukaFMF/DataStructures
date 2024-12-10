@@ -3,6 +3,7 @@
 #include <string.h>
 #include <time.h>
 
+#include "../utils/types.h"
 #include "quick_sort.h"
 
 void print_arr(i32 *nums,size_t n)

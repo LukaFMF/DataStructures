@@ -1,5 +1,6 @@
 #include <math.h>
 
+#include "../utils/types.h"
 #include "graph.h"
 
 f32 least_cost_path_with_m_edges(graph *g,size_t src,size_t dst,u32 m)
@@ -33,7 +34,7 @@ f32 least_cost_path_with_m_edges(graph *g,size_t src,size_t dst,u32 m)
 i32 main()
 {
 	graph g;
-	graph_init(&g,"exampleV.grph",true,true);
+	graph_init(&g,"bin/exampleV.grph",true,true);
 
 	const f32 min_cost = least_cost_path_with_m_edges(&g,2,4,9);
 	if(min_cost < INFINITY)
